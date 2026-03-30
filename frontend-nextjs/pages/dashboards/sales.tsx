@@ -5,7 +5,7 @@ export default function SalesDashboard() {
     return (
         <>
             <Head>
-                <title>Sales Command Center | ATOM</title>
+                <title>Atom | Sales Command Center</title>
                 <meta name="description" content="Unified sales intelligence across all your CRM platforms" />
             </Head>
 

@@ -117,7 +117,7 @@ async def lifespan(app: FastAPI):
 
     # 1. Initialize Database (Critical for in-memory DB)
     try:
-        from analytics.models import WorkflowExecutionLog  # Force registration
+        from core.models import WorkflowExecutionLog  # Force registration (moved from analytics.models)
         from sqlalchemy import inspect
 
         from core.admin_bootstrap import ensure_admin_user

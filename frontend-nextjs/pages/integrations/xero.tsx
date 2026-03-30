@@ -5,7 +5,7 @@ const XeroIntegration = () => {
   return (
     <>
       <Head>
-        <title>Xero Integration | ATOM</title>
+        <title>Atom | Xero Integration</title>
         <meta name="description" content="Enterprise integration for Xero accounting services" />
       </Head>
 

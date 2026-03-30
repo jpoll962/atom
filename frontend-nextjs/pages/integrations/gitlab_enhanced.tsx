@@ -5,7 +5,7 @@ const GitlabEnhanced = () => {
   return (
     <>
       <Head>
-        <title>GitLab Enhanced | ATOM</title>
+        <title>Atom | GitLab Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">GitLab Enhanced Integration</h1>

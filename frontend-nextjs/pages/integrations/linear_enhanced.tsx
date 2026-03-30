@@ -5,7 +5,7 @@ const LinearEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Linear Enhanced | ATOM</title>
+        <title>Atom | Linear Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Linear Enhanced Integration</h1>

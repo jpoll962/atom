@@ -5,7 +5,7 @@ const XeroEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Xero Enhanced | ATOM</title>
+        <title>Atom | Xero Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Xero Enhanced Integration</h1>

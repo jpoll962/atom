@@ -108,17 +108,17 @@ if "sqlite" in DATABASE_URL:
 elif "postgresql" in DATABASE_URL:
     # PostgreSQL configuration
     env = os.getenv("ENVIRONMENT", "development")
-    if env == "production":
+    ssl_mode = os.getenv("DB_SSL_MODE", "require" if env == "production" else "prefer")
+    if env == "production" and ssl_mode != "disable":
         connect_args = {
-            "sslmode": "require",
+            "sslmode": ssl_mode,
             "sslcert": os.getenv("DB_SSL_CERT"),
             "sslkey": os.getenv("DB_SSL_KEY"),
             "sslrootcert": os.getenv("DB_SSL_ROOT_CERT")
         }
     else:
-        # Local development usually doesn't need SSL
         connect_args = {
-            "sslmode": os.getenv("DB_SSL_MODE", "prefer")
+            "sslmode": ssl_mode
         }
     
     # Remove None values

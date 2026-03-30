@@ -44,7 +44,7 @@ export default function RiskDashboard() {
     return (
         <Layout>
             <Head>
-                <title>Risk Control Center - ATOM</title>
+                <title>Atom | Risk Control Center</title>
             </Head>
 
             <div className="container mx-auto py-8 space-y-8">

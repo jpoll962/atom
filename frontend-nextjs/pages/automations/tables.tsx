@@ -16,7 +16,7 @@ export default function TablesPage() {
     return (
         <>
             <Head>
-                <title>Tables | Atom</title>
+                <title>Atom | Tables</title>
                 <meta name="description" content="Manage data tables for your workflow automations. Store, query, and transform data like Google Sheets." />
             </Head>
             <div className="h-screen">

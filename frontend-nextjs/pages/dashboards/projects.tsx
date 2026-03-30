@@ -5,7 +5,7 @@ export default function ProjectsDashboard() {
     return (
         <>
             <Head>
-                <title>Project Command Center | ATOM</title>
+                <title>Atom | Project Command Center</title>
                 <meta name="description" content="Unified project management across all your platforms" />
             </Head>
 

@@ -17,6 +17,37 @@ const TauriHooks = () => {
   return null;
 };
 
+const ROUTE_TITLES: Record<string, string> = {
+  "/": "Dashboard",
+  "/chat": "Chat",
+  "/search": "Search",
+  "/documents": "Documents",
+  "/tasks": "Tasks",
+  "/automations": "Automations",
+  "/agents": "Agents",
+  "/marketplace": "Marketplace",
+  "/dashboards/projects": "Projects",
+  "/dashboards/sales": "Sales & CRM",
+  "/dashboards/support": "Support",
+  "/dashboards/knowledge": "Knowledge",
+  "/communication": "Communication",
+  "/sales": "Sales",
+  "/marketing": "Marketing",
+  "/finance": "Finance",
+  "/analytics": "Analytics",
+  "/calendar": "Calendar",
+  "/health": "Health",
+  "/voice": "Voice",
+  "/admin/jit-verification": "JIT Verification",
+  "/admin/business-facts": "Business Facts",
+  "/integrations": "Integrations",
+  "/dev-studio": "Dev Studio",
+  "/settings": "Settings",
+  "/auth/signin": "Sign In",
+  "/auth/signup": "Sign Up",
+  "/login": "Sign In",
+};
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -25,6 +56,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const title = ROUTE_TITLES[router.pathname];
+    document.title = title ? `Atom | ${title}` : "Atom";
+  }, [router.pathname]);
 
   // Default to false during SSR/prerender to avoid router errors
   const isStandalonePage = mounted ? (router.pathname.startsWith("/auth")) : false;

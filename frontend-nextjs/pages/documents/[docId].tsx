@@ -76,7 +76,7 @@ export default function DocumentDetailsPage() {
     return (
         <>
             <Head>
-                <title>{document.title} | Atom Knowledge Base</title>
+                <title>Atom | {document.title}</title>
             </Head>
 
             <div className="space-y-6 max-w-5xl mx-auto p-6">

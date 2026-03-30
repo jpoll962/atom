@@ -6,7 +6,7 @@ const OneDrivePage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>OneDrive Integration | ATOM</title>
+        <title>Atom | OneDrive Integration</title>
         <meta name="description" content="Connect and manage your OneDrive files with ATOM" />
       </Head>
 

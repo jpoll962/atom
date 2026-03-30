@@ -793,7 +793,7 @@ const BitbucketIntegrationPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Bitbucket Integration | ATOM</title>
+        <title>Atom | Bitbucket Integration</title>
         <meta
           name="description"
           content="Bitbucket integration for ATOM platform"

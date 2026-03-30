@@ -5,7 +5,7 @@ export default function SupportDashboard() {
     return (
         <>
             <Head>
-                <title>Support Command Center | ATOM</title>
+                <title>Atom | Support Command Center</title>
                 <meta name="description" content="Unified support inbox across all your ticketing platforms" />
             </Head>
 

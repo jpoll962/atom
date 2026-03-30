@@ -41,7 +41,7 @@ export default function ForensicsDashboard() {
     return (
         <Layout>
             <Head>
-                <title>Financial Forensics - ATOM</title>
+                <title>Atom | Financial Forensics</title>
             </Head>
 
             <div className="container mx-auto py-8 space-y-8">

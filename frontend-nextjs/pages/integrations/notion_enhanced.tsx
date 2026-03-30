@@ -5,7 +5,7 @@ const NotionEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Notion Enhanced | ATOM</title>
+        <title>Atom | Notion Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Notion Enhanced Integration</h1>

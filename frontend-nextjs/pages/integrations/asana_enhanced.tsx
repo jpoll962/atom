@@ -5,7 +5,7 @@ const AsanaEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Asana Enhanced | ATOM</title>
+        <title>Atom | Asana Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Asana Enhanced Integration</h1>

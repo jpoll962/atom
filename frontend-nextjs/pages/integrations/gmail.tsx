@@ -687,7 +687,7 @@ const GmailIntegrationPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Gmail Integration | ATOM</title>
+        <title>Atom | Gmail Integration</title>
         <meta
           name="description"
           content="Gmail integration for ATOM platform"

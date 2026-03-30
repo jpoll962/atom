@@ -5,7 +5,7 @@ const JiraEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Jira Enhanced | ATOM</title>
+        <title>Atom | Jira Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Jira Enhanced Integration</h1>

@@ -5,7 +5,7 @@ export default function KnowledgeDashboard() {
     return (
         <>
             <Head>
-                <title>Knowledge Command Center | ATOM</title>
+                <title>Atom | Knowledge Command Center</title>
                 <meta name="description" content="Unified document and knowledge search across your cloud storage" />
             </Head>
 

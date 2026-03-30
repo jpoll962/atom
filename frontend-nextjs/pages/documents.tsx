@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Head from 'next/head';
+
 import { useRouter } from 'next/router';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -97,10 +97,6 @@ export default function DocumentsPage() {
 
     return (
         <>
-            <Head>
-                <title>Knowledge Base | Atom</title>
-            </Head>
-
             <div className="space-y-6">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight text-foreground">Knowledge Base</h1>

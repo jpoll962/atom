@@ -2,7 +2,7 @@
 
 > **Project Context**: Atom is an intelligent business automation and integration platform that uses AI agents to help users automate workflows, integrate services, and manage business operations.
 
-**Last Updated**: March 24, 2026
+**Last Updated**: March 29, 2026
 
 ---
 
@@ -19,9 +19,16 @@
 - **✨ Personal Edition** - Run Atom locally with Docker
 - **✨ Production-Ready** - CI/CD pipeline, monitoring, health checks
 
-**Tech Stack**: Python 3.11, FastAPI, SQLAlchemy 2.0, SQLite/PostgreSQL, Multi-provider LLM, Playwright, Redis (WebSocket), Alembic
+**Tech Stack**: Python 3.11, FastAPI, SQLAlchemy 2.0, SQLite/PostgreSQL, Multi-provider LLM, Playwright, Redis (WebSocket), Alembic, Next.js 15.5, React 18, TypeScript
 
-**Key Directories**: `backend/core/`, `backend/api/`, `backend/tools/`, `backend/tests/`, `frontend-nextjs/`, `mobile/`, `docs/`
+**Key Directories**: `backend/core/`, `backend/api/`, `backend/tools/`, `backend/tests/`, `frontend-nextjs/`, `mobile/`, `menubar/`, `packages/`, `docs/`
+
+**Monorepo Structure**:
+- `backend/` - Python FastAPI backend (core services, API routes, tools, tests)
+- `frontend-nextjs/` - Next.js 15 frontend with TypeScript, Chakra UI, Material-UI
+- `mobile/` - React Native mobile application
+- `menubar/` - macOS menubar application
+- `packages/` - Shared packages (frontend-minimal, shared-ai, shared-integrations, shared-utils, shared-workflows)
 
 **Key Services**:
 - `agent_governance_service.py` - Agent lifecycle and permissions
@@ -492,21 +499,44 @@ from core.models import AgentRegistry
 
 ## Testing
 
-### Unit & Integration Tests
+### Backend Tests (Python/pytest)
 ```bash
-# All tests
-PYTHONPATH=/Users/rushiparikh/projects/atom/backend pytest tests/ -v
+# All unit & integration tests
+cd backend && pytest tests/ -v
 
-# Specific tests
+# Specific test files
 pytest tests/test_governance_streaming.py -v
 pytest tests/test_browser_automation.py -v
 pytest tests/test_governance_performance.py -v -s
 
-# With coverage
+# With coverage report
 pytest tests/ --cov=core --cov-report=html
+
+# Coverage trend tracking
+npm run coverage:trend           # View coverage trends
+npm run coverage:trend:update    # Update trend data
+npm run coverage:trend:html      # Generate HTML trend report
 ```
 
-### E2E UI Tests ✨
+### Frontend Tests (Jest/React Testing Library)
+```bash
+# All frontend tests
+cd frontend-nextjs && npm test
+
+# Watch mode
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+
+# CI mode (non-interactive, used in CI/CD)
+npm run test:ci
+
+# Coverage quality checks
+npm run test:check-coverage      # Check minimum coverage thresholds
+```
+
+### E2E Tests (Playwright Python) ✨
 ```bash
 # E2E Test Infrastructure (Phase 234)
 cd backend/tests/e2e_ui
@@ -517,7 +547,7 @@ cd backend/tests/e2e_ui
 # Run all E2E tests
 pytest backend/tests/e2e_ui/ -v
 
-# Run with 4 parallel workers
+# Run with 4 parallel workers (10x faster)
 pytest backend/tests/e2e_ui/ -v -n 4
 
 # Run specific authentication E2E tests
@@ -542,6 +572,13 @@ allure serve allure-results
 - **Agent Workflows** (AGNT-01 to AGNT-08): Creation, registry, streaming, WebSocket reconnection, concurrent execution, governance enforcement, lifecycle, cross-platform
 
 **See**: `backend/tests/e2e_ui/README.md`, `.planning/phases/234-authentication-and-agent-e2e/`
+
+### Test Quality Tools
+- **Mutation Testing**: Stryker (@stryker-mutator/core) for frontend
+- **Property-Based Testing**: fast-check for JavaScript/TypeScript
+- **Fuzzing**: Automated bug discovery via GitHub Actions (bug-discovery-weekly.yml)
+- **Chaos Engineering**: Weekly chaos tests (chaos-engineering-weekly.yml)
+- **Stress Testing**: k6-based load tests (nightly-stress-tests.yml, weekly-stress-tests.yml)
 
 ---
 
@@ -682,18 +719,89 @@ alembic history                        # View history
 
 ---
 
+## Development Workflow
+
+### Typical Development Flow
+1. **Setup**: Install dependencies and configure environment
+2. **Type Check**: Run type checker (MyPy for backend, tsc for frontend)
+3. **Test**: Run unit and integration tests
+4. **Lint**: Run linter (ruff/black for backend, ESLint for frontend)
+5. **Build**: Build for production if needed
+
+### Pre-commit Checklist
+- Backend: `python -m mypy . && pytest tests/ -v`
+- Frontend: `npm run type-check && npm run lint && npm run test:ci`
+- E2E: `pytest backend/tests/e2e_ui/ -v -n 4`
+
+### CI/CD Pipeline
+- **GitHub Actions**: Automated testing on every push
+- **Coverage Reports**: Tracked over time with trend analysis
+- **Type Checking**: Enforced in CI for both Python and TypeScript
+- **E2E Tests**: Run on PRs with parallel execution
+- **Deployment**: Automated to staging (auto) and production (manual approval)
+
+### Branch Strategy
+- `main` - Production branch
+- `develop` - Development branch (if applicable)
+- Feature branches: `feat/feature-name`, `fix/bug-name`
+- PRs require CI checks to pass before merge
+
+---
+
 ## Quick Reference Commands
 
+### Backend Development
 ```bash
-# Development
-python -m uvicorn main:app --reload --port 8000
+# Development server
+cd backend && python -m uvicorn main:app --reload --port 8000
+
+# Type checking
+python -m mypy .
+
+# Linting
+ruff check .
+black .
+
+# Database migrations
+alembic upgrade head
+alembic current
+alembic history
 
 # Daemon mode (Personal Edition)
 atom-os daemon              # Start background service
 atom-os status              # Check daemon status
 atom-os stop                # Stop daemon
 atom-os execute <command>   # Run on-demand
+```
 
+### Frontend Development
+```bash
+# Development server
+cd frontend-nextjs && npm run dev
+
+# Type checking
+npm run type-check
+
+# Linting
+npm run lint
+
+# Testing
+npm run test              # Jest tests
+npm run test:coverage     # With coverage report
+npm run test:ci           # CI mode (non-interactive)
+npm run test:watch        # Watch mode
+
+# Build
+npm run build             # Production build
+npm run analyze           # Bundle analysis
+
+# API types generation (from OpenAPI)
+npm run generate:api-types                # Generate from file
+npm run generate:api-types:watch          # Watch mode for live backend
+```
+
+### System & API Commands
+```bash
 # Health checks
 curl http://localhost:8000/health/live    # Liveness probe
 curl http://localhost:8000/health/ready   # Readiness probe (DB + disk)
@@ -714,13 +822,8 @@ curl -X POST "/api/v1/graph/search/local" -d '{"query": "Project Alpha", "depth"
 curl -X POST "/api/v1/entity-types" -d '{"slug": "invoice", "display_name": "Invoice", "json_schema": {...}}'
 curl -X GET "/api/v1/entity-types?is_active=true"
 
-# Playwright
+# Playwright (browser automation)
 playwright install chromium
-
-# Database
-alembic upgrade head
-alembic current
-alembic history
 
 # Git
 git status
@@ -731,18 +834,50 @@ git push origin main
 # Logs
 tail -f logs/atom.log
 grep "governance" logs/atom.log | tail -100
+```
 
-# E2E Tests (Phase 234)
-cd backend/tests/e2e_ui && ./scripts/start-e2e-env.sh  # Start test environment
-pytest backend/tests/e2e_ui/ -v                          # Run all E2E tests
-pytest backend/tests/e2e_ui/ -v -n 4                     # Run with 4 workers (10x faster)
-pytest backend/tests/e2e_ui/tests/test_auth_login.py -v # Run specific test file
-allure serve allure-results                              # View Allure reports
+### Coverage & Quality
+```bash
+# Backend coverage with trend tracking
+pytest backend/tests/ --cov=core --cov-report=html
 
-# Personal Edition (Docker)
+# Frontend coverage trends
+npm run coverage:trend           # View coverage trends
+npm run coverage:trend:update    # Update trend data
+npm run coverage:trend:html      # Generate HTML trend report
+
+# Mutation testing (Stryker for frontend)
+# Configured in package.json via @stryker-mutator/core
+```
+
+### Docker (Personal Edition)
+```bash
+# Start Personal Edition
 docker-compose -f docker-compose-personal.yml up -d
+
+# View logs
 docker-compose -f docker-compose-personal.yml logs -f
+
+# Stop
 docker-compose -f docker-compose-personal.yml down
+```
+
+### E2E Tests (Quick Reference)
+```bash
+# Start E2E test environment
+cd backend/tests/e2e_ui && ./scripts/start-e2e-env.sh
+
+# Run all E2E tests
+pytest backend/tests/e2e_ui/ -v
+
+# Run with 4 parallel workers (10x faster)
+pytest backend/tests/e2e_ui/ -v -n 4
+
+# Run specific test file
+pytest backend/tests/e2e_ui/tests/test_auth_login.py -v
+
+# View Allure reports
+allure serve allure-results
 ```
 
 ---

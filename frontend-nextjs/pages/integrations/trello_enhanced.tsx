@@ -5,7 +5,7 @@ const TrelloEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Trello Enhanced | ATOM</title>
+        <title>Atom | Trello Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Trello Enhanced Integration</h1>

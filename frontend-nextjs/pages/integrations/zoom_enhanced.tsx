@@ -5,7 +5,7 @@ const ZoomEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Zoom Enhanced | ATOM</title>
+        <title>Atom | Zoom Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Zoom Enhanced Integration</h1>

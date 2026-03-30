@@ -5,7 +5,7 @@ export default function FinancePage() {
     return (
         <>
             <Head>
-                <title>Finance | ATOM</title>
+                <title>Atom | Finance</title>
                 <meta name="description" content="Financial overview and transactions management" />
             </Head>
 

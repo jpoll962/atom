@@ -37,7 +37,7 @@ export default function OwnerDashboard() {
     return (
         <Layout>
             <Head>
-                <title>Owner Cockpit - ATOM</title>
+                <title>Atom | Owner Cockpit</title>
             </Head>
 
             <div className="container mx-auto py-8 space-y-8">

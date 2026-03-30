@@ -97,7 +97,8 @@ const AgentsDashboard = () => {
             setError(null);
             console.log("Fetching agents with token:", token ? token.substring(0, 10) + "..." : "NONE");
             // Direct backend connection to bypass proxy issues
-            const res = await fetch('http://localhost:8000/api/agents/', {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
+            const res = await fetch(`${apiUrl}/api/agents/`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -279,7 +280,7 @@ const AgentsDashboard = () => {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8 font-sans">
             <Head>
-                <title>Atom AI | Agent Control Center</title>
+                <title>Atom | Agents</title>
             </Head>
 
             <div className="max-w-6xl mx-auto space-y-8">

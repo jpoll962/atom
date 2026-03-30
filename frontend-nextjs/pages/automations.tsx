@@ -38,7 +38,7 @@ const AutomationsPage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Automations | Atom</title>
+        <title>Atom | Automations</title>
         <meta name="description" content="Build powerful workflow automations with AI. Connect your apps and automate tasks." />
       </Head>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 flex flex-col">

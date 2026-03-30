@@ -29,7 +29,7 @@ export default function TemplatesPage() {
     return (
         <>
             <Head>
-                <title>Workflow Templates | Atom</title>
+                <title>Atom | Workflow Templates</title>
                 <meta name="description" content="Browse pre-built workflow automation templates. Get started in minutes with templates for Sales, Marketing, Support, and more." />
             </Head>
             <div className="h-screen">

@@ -15,8 +15,8 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_CLIENT_ID || "",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
     }),
-    // Credentials provider for E2E testing and development - DISABLED IN PRODUCTION
-    ...(process.env.NODE_ENV === "development" || process.env.ENABLE_TEST_CREDENTIALS === "true" ? [{
+    // Credentials provider for email/password login
+    ...(process.env.ENABLE_CREDENTIALS !== "false" ? [{
       ...CredentialsProvider({
         name: "Credentials",
         credentials: {
@@ -26,7 +26,8 @@ export const authOptions: NextAuthOptions = {
         async authorize(credentials) {
           // Use Backend API for authentication (avoids direct DB access from frontend)
           try {
-            const res = await fetch("http://127.0.0.1:8000/api/auth/login", {
+            const backendUrl = process.env.BACKEND_INTERNAL_URL || "http://atom-backend:8000";
+            const res = await fetch(`${backendUrl}/api/auth/login`, {
               method: 'POST',
               headers: {
                 "Content-Type": "application/json",
@@ -193,60 +194,8 @@ export const authOptions: NextAuthOptions = {
     maxAge: 24 * 60 * 60, // 1 day (reduced from 30 days for security)
     updateAge: 60 * 60, // Update session every hour
   },
-  // Enhanced security configuration
-  useSecureCookies: process.env.NODE_ENV === "production",
-  cookies: {
-    sessionToken: {
-      name: process.env.NODE_ENV === "production" ? "__Secure-next-auth.session-token" : "next-auth.session-token",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: process.env.NODE_ENV === "production",
-        domain: process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).hostname : undefined,
-      },
-    },
-    callbackUrl: {
-      name: process.env.NODE_ENV === "production" ? "__Secure-next-auth.callback-url" : "next-auth.callback-url",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: process.env.NODE_ENV === "production",
-        domain: process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).hostname : undefined,
-      },
-    },
-    csrfToken: {
-      name: process.env.NODE_ENV === "production" ? "__Host-next-auth.csrf-token" : "next-auth.csrf-token",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: process.env.NODE_ENV === "production",
-        domain: process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).hostname : undefined,
-      },
-    },
-    pkceCodeVerifier: {
-      name: process.env.NODE_ENV === "production" ? "__Secure-next-auth.pkce.code_verifier" : "next-auth.pkce.code_verifier",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: process.env.NODE_ENV === "production",
-        domain: process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).hostname : undefined,
-      },
-    },
-    state: {
-      name: process.env.NODE_ENV === "production" ? "__Host-next-auth.state" : "next-auth.state",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: process.env.NODE_ENV === "production",
-        domain: process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).hostname : undefined,
-      },
-    },
-  },
+  // Security: use secure cookies only when serving over HTTPS
+  useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https://") ?? false,
   secret: process.env.NEXTAUTH_SECRET || "development-fallback-secret-123",
   debug: true,
 };

@@ -5,7 +5,7 @@ const BoxEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Box Enhanced | ATOM</title>
+        <title>Atom | Box Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Box Enhanced Integration</h1>

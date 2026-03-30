@@ -8,7 +8,7 @@ const AISettingsPage = () => {
     return (
         <Layout>
             <Head>
-                <title>AI Provider Settings | Atom</title>
+                <title>Atom | AI Provider Settings</title>
             </Head>
             <Container maxW="container.xl" py={8}>
                 <Box mb={8}>

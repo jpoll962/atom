@@ -41,15 +41,29 @@ export default function SignUp() {
       return;
     }
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long");
+    if (password.length < 12) {
+      setError("Password must be at least 12 characters long");
       setIsLoading(false);
       return;
     }
 
     try {
-      // In a real app, you would call your registration API here
-      // For demo purposes, we'll auto-create the account and sign in
+      // Register the user via the registration API
+      const registerRes = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, name }),
+      });
+
+      const registerData = await registerRes.json();
+
+      if (!registerRes.ok) {
+        setError(registerData.error || "Registration failed");
+        setIsLoading(false);
+        return;
+      }
+
+      // Registration succeeded — now sign in automatically
       const result = await signIn("credentials", {
         email,
         password,
@@ -57,14 +71,17 @@ export default function SignUp() {
       });
 
       if (result?.error) {
-        // If sign in fails, it means the user doesn't exist
-        // In a real app, you would create the user here
+        // Account was created but auto-login failed — redirect to sign in
         toast({
           title: "Account created successfully!",
-          description: "Please sign in with your new credentials",
+          description: "Please sign in with your new credentials.",
         });
         router.push("/auth/signin");
       } else {
+        const session = await getSession();
+        if (session?.backendToken) {
+          localStorage.setItem("auth_token", session.backendToken);
+        }
         toast({
           title: "Welcome to ATOM!",
           description: "Your account has been created successfully.",
@@ -139,7 +156,7 @@ export default function SignUp() {
                 className="h-12"
               />
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Must be at least 6 characters
+                Min 12 chars with uppercase, lowercase, number, and special character
               </p>
             </div>
 

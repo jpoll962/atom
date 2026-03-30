@@ -9,7 +9,7 @@ const AirtableIntegrationPage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Airtable Integration | ATOM</title>
+        <title>Atom | Airtable Integration</title>
         <meta name="description" content="Connect and manage your Airtable bases" />
       </Head>
 

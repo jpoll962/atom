@@ -36,7 +36,7 @@ export default function VersionHistoryPage() {
     return (
         <>
             <Head>
-                <title>Version History | Atom</title>
+                <title>Atom | Version History</title>
                 <meta name="description" content="View and manage workflow version history. Compare, restore, and track changes to your automations." />
             </Head>
             <div className="h-screen">

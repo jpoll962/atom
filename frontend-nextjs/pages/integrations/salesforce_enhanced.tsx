@@ -5,7 +5,7 @@ const SalesforceEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Salesforce Enhanced | ATOM</title>
+        <title>Atom | Salesforce Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Salesforce Enhanced Integration</h1>

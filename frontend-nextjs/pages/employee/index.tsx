@@ -17,7 +17,7 @@ const EmployeeDashboard = () => {
     return (
         <Container maxW="container.md" py={20}>
             <Head>
-                <title>Hire an AI Employee | ATOM</title>
+                <title>Atom | Hire an AI Employee</title>
             </Head>
             <VStack spacing={8} align="center" textAlign="center">
                 <Box p={4} borderRadius="full" bg="blue.50" color="blue.500" fontSize="4xl">

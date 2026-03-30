@@ -6,7 +6,7 @@ const GoogleDrivePage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Google Drive Integration | ATOM</title>
+        <title>Atom | Google Drive Integration</title>
         <meta name="description" content="Connect and manage your Google Drive files with ATOM" />
       </Head>
 

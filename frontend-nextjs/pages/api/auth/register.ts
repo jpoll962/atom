@@ -3,9 +3,9 @@ import { query } from '../../../lib/db';
 import { USE_BACKEND_API } from '../../../lib/api';
 import bcrypt from 'bcryptjs';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ||
+const API_BASE_URL = process.env.BACKEND_INTERNAL_URL ||
+    process.env.NEXT_PUBLIC_API_URL ||
     process.env.API_BASE_URL ||
-    process.env.PYTHON_BACKEND_URL ||
     'http://localhost:8000';
 
 export default async function handler(
@@ -39,18 +39,21 @@ export default async function handler(
         if (USE_BACKEND_API) {
             try {
                 // Check if backend has a registration endpoint
+                const nameParts = (name || '').trim().split(/\s+/);
+                const firstName = nameParts[0] || '';
+                const lastName = nameParts.slice(1).join(' ') || '';
                 const registerResponse = await fetch(`${API_BASE_URL}/api/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password, name })
+                    body: JSON.stringify({ email, password, first_name: firstName, last_name: lastName })
                 });
 
                 if (registerResponse.ok) {
                     const data = await registerResponse.json();
                     return res.status(201).json(data);
-                } else if (registerResponse.status === 400) {
+                } else if (registerResponse.status === 400 || registerResponse.status === 422 || registerResponse.status === 409) {
                     const error = await registerResponse.json();
-                    return res.status(400).json(error);
+                    return res.status(400).json({ error: error.detail || error.error || 'Registration failed' });
                 } else {
                     // If endpoint doesn't exist or fails, fall back to direct DB
                     console.log('Backend registration endpoint not available, falling back to direct DB');

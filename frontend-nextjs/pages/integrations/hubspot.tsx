@@ -6,7 +6,7 @@ const HubSpotIntegrationPage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>HubSpot Integration | ATOM</title>
+        <title>Atom | HubSpot Integration</title>
         <meta name="description" content="Complete CRM and marketing automation platform with advanced search capabilities" />
       </Head>
 

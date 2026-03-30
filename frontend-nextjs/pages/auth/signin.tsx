@@ -51,6 +51,11 @@ export default function SignIn() {
       } else if (!result?.ok) {
         setError("Authentication failed");
       } else {
+        // Bridge NextAuth session with localStorage for pages that use direct API calls
+        const session = await getSession();
+        if (session?.backendToken) {
+          localStorage.setItem('auth_token', session.backendToken);
+        }
         toast({
           title: "Successfully signed in!",
           variant: "success",

@@ -8,7 +8,7 @@ export default function SettingsPage() {
     return (
         <>
             <Head>
-                <title>Settings - ATOM</title>
+                <title>Atom | Settings</title>
             </Head>
 
             <div className="container mx-auto py-10 max-w-4xl">

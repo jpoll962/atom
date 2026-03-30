@@ -5,7 +5,7 @@ const GoogleEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Google Enhanced | ATOM</title>
+        <title>Atom | Google Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Google Enhanced Integration</h1>

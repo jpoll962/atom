@@ -5,7 +5,7 @@ const StripeEnhanced = () => {
   return (
     <>
       <Head>
-        <title>Stripe Enhanced | ATOM</title>
+        <title>Atom | Stripe Enhanced</title>
       </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Stripe Enhanced Integration</h1>
